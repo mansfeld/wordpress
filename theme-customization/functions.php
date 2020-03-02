@@ -23,3 +23,11 @@ add_action( 'wp_before_admin_bar_render', 'remove_comments_from_bar' );
 
 /* Remove Comments END */
 
+
+
+/* Custom image size */
+function add_blog_thumbnail_size() {
+    add_image_size( 'blog-thumbnail', 809, 500, true ); /* (cropped) */
+}
+add_action( 'after_setup_theme', 'add_blog_thumbnail_size' );
+
