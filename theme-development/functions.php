@@ -19,7 +19,7 @@ add_theme_support('custom-logo');
 
 /* Post Thumbnails support */
 
-add_theme_support('post-thumbnails', array('post', 'page'));
+add_theme_support('post-thumbnails', array('post', 'page', 'my_custom_post_type'));
 
 
 
