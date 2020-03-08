@@ -38,3 +38,18 @@ function custom_widget_init(){
 	);
 }
 add_action('widgets_init', 'custom_widget_init');
+
+
+
+function my_widget_init() {
+register_sidebar( array(
+     'name'          => 'My Sidebar',
+     'id'            => 'my-sidebar',
+     'before_widget' => ' ',
+     'after_widget'  => ' ',
+     'before_title'  => ' ',
+     'after_title'   => ' ',
+ ) );
+}
+ add_action( 'widgets_init', 'my_widget_init');
+
