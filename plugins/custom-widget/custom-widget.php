@@ -39,4 +39,7 @@
 <?php 
  } 
 }
- add_action('widgets_init', create_function('', 'return register_widget("clear_widget");')); 
+function clear_widget_init(){
+   return register_widget('clear_widget');
+}
+add_action ('widgets_init', 'clear_widget_init');
