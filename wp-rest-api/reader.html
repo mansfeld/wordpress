@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="pl-PL">
+<head>
+	<meta charset="utf-8">
+	<title>WP REST API Test</title>
+	<style>
+		*{
+			font-family: Arial;
+			font-weight:300;
+			background-color:#eee;
+		}
+		body{
+			padding:30px;
+		}
+		a{
+			color:#333;
+		}
+	</style>
+</head>
+<body>
+
+<h1>WP REST API</h1>
+<div id="posts">
+
+</div>
+
+<h2>Dodaj post</h2>
+
+<input type="text" name="title" id="title"><br>
+<textarea name="content"  id="title">Treść posta...</textarea>
+<button id="publish">Opublikuj</button>
+
+
+
+
+<script>
+	var wp;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://mansfeld.pl/wp-json/wp/v2/posts?categories=172');
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 400) {
+		var data = JSON.parse(xhr.responseText);
+		loadData(data);
+		wp = data;
+      } 
+	  else {
+        console.log("Połączono z serweere ale wystąpił błąd");
+      }
+    };
+	xhr.onerror = function(){
+		console.log("Bład połączenia z serwerem");
+	} 
+	xhr.send();
+
+	
+	function loadData(wpData){
+		var html = '';
+		for (i = 0; i < wpData.length; i++){
+			html += '<h2><a href="'+ wpData[i].link +'">' + wpData[i].title.rendered + '</a></h2>';
+			html += '<small> Utworzono: ' + wpData[i].date + '</small>';
+			html += '<p>' + wpData[i].excerpt.rendered + '</p>';
+		}
+		posts = document.getElementById("posts");
+		posts.innerHTML = html;
+	}
+	
+	
+	var publishButton = document.querySelector('#publish');
+		publishButton.addEventListener("click", function(){
+					
+					var publishData = {
+					
+						"title" : document.querySelector('#title'),
+						"content" : document.querySelector('#content'),
+						"status" : "draft"
+					
+					}
+					
+					var publishPost = new XMLHttpRequest();
+					publishPost.open("POST", "https://mansfeld.pl/wp-json/wp/v2/posts");
+					publishPost.setRequestHeader("X-WP-Nonce", )
+					publishPost.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+					publishPost.send(JSON.stringify(publishData));
+					
+		});
+		
+	
+	
+	
+</script>
+</body>
+</html>
